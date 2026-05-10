@@ -7,17 +7,20 @@ interface Props {
   initialValue?: string;
   size?: "default" | "lg";
   suggestions?: string[];
+  onSubmit?: (query: string) => void;
 }
 
-export function SearchInput({ initialValue = "", size = "lg", suggestions }: Props) {
+export function SearchInput({ initialValue = "", size = "lg", suggestions, onSubmit }: Props) {
   const [value, setValue] = useState(initialValue);
   const navigate = useNavigate();
 
   const submit = (q: string) => {
     const query = q.trim();
     if (!query) return;
-    navigate({ to: "/comparar", search: { query } });
+    if (onSubmit) onSubmit(query);
+    else navigate({ to: "/comparar", search: { query } });
   };
+
 
   return (
     <div className="w-full">
