@@ -46,7 +46,12 @@ function ComparePage() {
     setLoading(true); setError(null);
     compareCoursesWithAI(query)
       .then((r) => { if (!cancelled) setResult({ ...r, query }); })
-      .catch(() => { if (!cancelled) setError("Não foi possível comparar agora. Tente novamente."); })
+      .catch((error) => {
+        console.error(error);
+        if (!cancelled) {
+          setError(error instanceof Error ? error.message : "Não foi possível comparar agora. Tente novamente.");
+        }
+      })
       .finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; };
   }, [query]);
