@@ -27,7 +27,8 @@ export const Route = createFileRoute("/curso/$id")({
 });
 
 function CoursePage() {
-  const { course } = Route.useLoaderData();
+  const { course } = Route.useLoaderData() as { course: Course };
+
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
