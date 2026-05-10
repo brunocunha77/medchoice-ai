@@ -18,6 +18,14 @@ async function getServerEntry(): Promise<ServerEntry> {
   return serverEntryPromise;
 }
 
+function applyRuntimeEnv(env: unknown) {
+  if (!env || typeof env !== "object") return;
+  const openAIKey = (env as Record<string, unknown>).OPENAI_API_KEY;
+  if (typeof openAIKey === "string" && openAIKey) {
+    process.env.OPENAI_API_KEY = openAIKey;
+  }
+}
+
 function brandedErrorResponse(): Response {
   return new Response(renderErrorPage(), {
     status: 500,
@@ -69,6 +77,7 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
+      applyRuntimeEnv(env);
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
       return await normalizeCatastrophicSsrResponse(response);
