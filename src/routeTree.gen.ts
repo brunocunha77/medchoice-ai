@@ -9,38 +9,167 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as ParaProdutoresRouteImport } from './routes/para-produtores'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CompararRouteImport } from './routes/comparar'
+import { Route as CategoriasRouteImport } from './routes/categorias'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DashboardProdutorRouteImport } from './routes/dashboard.produtor'
+import { Route as CursoIdRouteImport } from './routes/curso.$id'
 
+const ParaProdutoresRoute = ParaProdutoresRouteImport.update({
+  id: '/para-produtores',
+  path: '/para-produtores',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompararRoute = CompararRouteImport.update({
+  id: '/comparar',
+  path: '/comparar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CategoriasRoute = CategoriasRouteImport.update({
+  id: '/categorias',
+  path: '/categorias',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DashboardProdutorRoute = DashboardProdutorRouteImport.update({
+  id: '/produtor',
+  path: '/produtor',
+  getParentRoute: () => DashboardRoute,
+} as any)
+const CursoIdRoute = CursoIdRouteImport.update({
+  id: '/curso/$id',
+  path: '/curso/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/categorias': typeof CategoriasRoute
+  '/comparar': typeof CompararRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/entrar': typeof EntrarRoute
+  '/para-produtores': typeof ParaProdutoresRoute
+  '/curso/$id': typeof CursoIdRoute
+  '/dashboard/produtor': typeof DashboardProdutorRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/categorias': typeof CategoriasRoute
+  '/comparar': typeof CompararRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/entrar': typeof EntrarRoute
+  '/para-produtores': typeof ParaProdutoresRoute
+  '/curso/$id': typeof CursoIdRoute
+  '/dashboard/produtor': typeof DashboardProdutorRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/categorias': typeof CategoriasRoute
+  '/comparar': typeof CompararRoute
+  '/dashboard': typeof DashboardRouteWithChildren
+  '/entrar': typeof EntrarRoute
+  '/para-produtores': typeof ParaProdutoresRoute
+  '/curso/$id': typeof CursoIdRoute
+  '/dashboard/produtor': typeof DashboardProdutorRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/categorias'
+    | '/comparar'
+    | '/dashboard'
+    | '/entrar'
+    | '/para-produtores'
+    | '/curso/$id'
+    | '/dashboard/produtor'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/categorias'
+    | '/comparar'
+    | '/dashboard'
+    | '/entrar'
+    | '/para-produtores'
+    | '/curso/$id'
+    | '/dashboard/produtor'
+  id:
+    | '__root__'
+    | '/'
+    | '/categorias'
+    | '/comparar'
+    | '/dashboard'
+    | '/entrar'
+    | '/para-produtores'
+    | '/curso/$id'
+    | '/dashboard/produtor'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CategoriasRoute: typeof CategoriasRoute
+  CompararRoute: typeof CompararRoute
+  DashboardRoute: typeof DashboardRouteWithChildren
+  EntrarRoute: typeof EntrarRoute
+  ParaProdutoresRoute: typeof ParaProdutoresRoute
+  CursoIdRoute: typeof CursoIdRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/para-produtores': {
+      id: '/para-produtores'
+      path: '/para-produtores'
+      fullPath: '/para-produtores'
+      preLoaderRoute: typeof ParaProdutoresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/comparar': {
+      id: '/comparar'
+      path: '/comparar'
+      fullPath: '/comparar'
+      preLoaderRoute: typeof CompararRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/categorias': {
+      id: '/categorias'
+      path: '/categorias'
+      fullPath: '/categorias'
+      preLoaderRoute: typeof CategoriasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +177,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/dashboard/produtor': {
+      id: '/dashboard/produtor'
+      path: '/produtor'
+      fullPath: '/dashboard/produtor'
+      preLoaderRoute: typeof DashboardProdutorRouteImport
+      parentRoute: typeof DashboardRoute
+    }
+    '/curso/$id': {
+      id: '/curso/$id'
+      path: '/curso/$id'
+      fullPath: '/curso/$id'
+      preLoaderRoute: typeof CursoIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface DashboardRouteChildren {
+  DashboardProdutorRoute: typeof DashboardProdutorRoute
+}
+
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardProdutorRoute: DashboardProdutorRoute,
+}
+
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CategoriasRoute: CategoriasRoute,
+  CompararRoute: CompararRoute,
+  DashboardRoute: DashboardRouteWithChildren,
+  EntrarRoute: EntrarRoute,
+  ParaProdutoresRoute: ParaProdutoresRoute,
+  CursoIdRoute: CursoIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
