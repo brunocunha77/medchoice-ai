@@ -191,9 +191,7 @@ function Home() {
           </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {CATEGORIES.map((c) => (
-              <button key={c.title} onClick={() => handleSearch(c.query)} className="text-left">
-                <CategoryCard {...c} />
-              </button>
+              <CategoryCard key={c.title} {...c} onClick={() => handleSearch(c.query)} />
             ))}
           </div>
         </div>

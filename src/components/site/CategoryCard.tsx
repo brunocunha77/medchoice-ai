@@ -6,15 +6,12 @@ interface Props {
   title: string;
   description: string;
   query: string;
+  onClick?: () => void;
 }
 
-export function CategoryCard({ icon: Icon, title, description, query }: Props) {
-  return (
-    <Link
-      to="/comparar"
-      search={{ query }}
-      className="group flex flex-col rounded-2xl border border-border bg-card p-5 transition hover:-translate-y-0.5 hover:border-medical/50 hover:shadow-lg"
-    >
+export function CategoryCard({ icon: Icon, title, description, query, onClick }: Props) {
+  const inner = (
+    <>
       <div className="flex items-start justify-between">
         <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-medical/10 text-medical">
           <Icon className="h-5 w-5" />
@@ -24,6 +21,23 @@ export function CategoryCard({ icon: Icon, title, description, query }: Props) {
       <h3 className="mt-4 font-display text-base font-semibold">{title}</h3>
       <p className="mt-1 text-sm text-muted-foreground">{description}</p>
       <span className="mt-4 text-xs font-medium text-medical">Ver comparações →</span>
+    </>
+  );
+
+  const className =
+    "group flex w-full flex-col rounded-2xl border border-border bg-card p-5 text-left transition hover:-translate-y-0.5 hover:border-medical/50 hover:shadow-lg";
+
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={className}>
+        {inner}
+      </button>
+    );
+  }
+
+  return (
+    <Link to="/comparar" search={{ query }} className={className}>
+      {inner}
     </Link>
   );
 }
