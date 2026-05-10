@@ -3,9 +3,10 @@ import { ExternalLink, GitCompare, Star, Check, AlertTriangle } from "lucide-rea
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getCourseById } from "@/lib/aiCompare";
+import type { Course } from "@/lib/types";
 
 export const Route = createFileRoute("/curso/$id")({
-  loader: ({ params }) => {
+  loader: ({ params }): { course: Course } => {
     const course = getCourseById(params.id);
     if (!course) throw notFound();
     return { course };
